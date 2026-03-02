@@ -8,7 +8,7 @@ public class randomGenerator implements arrayGenerator{
     @Override
     public int[] generate(int size) {
         int[] result = new int[size];
-        Arrays.setAll(result, i -> ThreadLocalRandom.current().nextInt(size));
+        Arrays.setAll(result, i -> ThreadLocalRandom.current().nextInt(100) + 1);
         
         return result;
     }
