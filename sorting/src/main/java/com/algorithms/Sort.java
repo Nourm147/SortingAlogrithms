@@ -28,11 +28,16 @@ public abstract class Sort {
         this.currentRunData = currentRunData;
         this.inVisualizationMode = inVisualizationMode;
 
+        onCompareEvent = new Event<>();
+        onSwapEvent = new Event<>();
+        onEndEvent = new Event<>();
+
         onCompareEvent.addListener(x -> this.currentRunData.increaseComparisons());
         onSwapEvent.addListener(x -> this.currentRunData.increaseinterchanges());
     }
 
     public void sort(int[] arr) {
+
         currentRunData.startRun();
 
         performSort(arr); // Call template Method
@@ -46,6 +51,7 @@ public abstract class Sort {
 
     // Helper function to handle delay for visualization
     protected void handleVisualizationDelay() {
+
         if (!inVisualizationMode) {
             return;
         }
@@ -58,14 +64,17 @@ public abstract class Sort {
 
     // Helper methods for comparison and swap
     protected void compare(int i, int j) {
+
         onCompareEvent.invoke(new SimpleOpData(i, j));
         handleVisualizationDelay();
     }
 
     protected void swap(int[] arr, int i, int j) {
+
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
+
         onSwapEvent.invoke(new SimpleOpData(i, j));
         handleVisualizationDelay();
     }

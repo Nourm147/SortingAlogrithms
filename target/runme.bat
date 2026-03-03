@@ -1,0 +1,1 @@
+start jlink-image\bin\javaw -jar modules\sorting-0.jar

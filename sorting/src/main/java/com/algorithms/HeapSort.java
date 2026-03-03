@@ -10,8 +10,37 @@ public class HeapSort extends Sort {
 
     @Override
     public void performSort(int[] arr) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sort'");
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            heapify(arr, arr.length, i);
+        }
+
+        for (int i = arr.length - 1; i > 0; i--) {
+            swap(arr, i, arr[0]);
+            heapify(arr, i, 0); // ReInsert the last element after swapping
+        }
+
     }
 
+    public void heapify(int[] arr, int n, int index) {
+        int largest = index;
+
+        int left = 2 * index + 1;
+        int right = 2 * index + 2;
+
+        compare(left, largest);
+        if (left < n && arr[left] > arr[largest]) {
+            largest = left;
+        }
+
+        compare(right, largest);
+        if (right < n && arr[right] > arr[largest]) {
+            largest = right;
+        }
+
+        if (largest != index) {
+            swap(arr, index, largest);
+
+            heapify(arr, n, largest); // move to the next level
+        }
+    }
 }

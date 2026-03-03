@@ -21,7 +21,9 @@ public class SelectionSort extends Sort {
                     minIndex = j;
                 }
             }
-            swap(arr, i, minIndex);
+            if (i != minIndex) {
+                swap(arr, i, minIndex);
+            }
 
         }
     }
