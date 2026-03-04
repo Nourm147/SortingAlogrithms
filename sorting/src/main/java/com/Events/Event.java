@@ -1,10 +1,10 @@
-package com.events;
+package com.Events;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Event<T> {
-    
+
     private List<Observer<T>> listeners = new ArrayList<>();
 
     public void addListener(Observer<T> listener) {
@@ -17,7 +17,7 @@ public class Event<T> {
         listeners.remove(listener);
     }
 
-    public void removeAllListeners(){
+    public void removeAllListeners() {
         listeners = new ArrayList<>();
     }
 

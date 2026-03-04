@@ -1,8 +1,8 @@
-package com.algorithms;
+package com.Algorithms;
 
 import com.Data.SimpleOpData;
 import com.Data.SimpleRunData;
-import com.events.Event;
+import com.Events.Event;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +15,8 @@ public abstract class Sort {
     protected Event<SimpleOpData> onCompareEvent;
     @Getter
     protected Event<SimpleOpData> onSwapEvent;
+    @Getter
+    protected Event<SimpleOpData> onInsertEvent;
     @Getter
     protected Event<SimpleRunData> onEndEvent;
 
@@ -30,10 +32,12 @@ public abstract class Sort {
 
         onCompareEvent = new Event<>();
         onSwapEvent = new Event<>();
+        onInsertEvent = new Event<>();
         onEndEvent = new Event<>();
 
         onCompareEvent.addListener(x -> this.currentRunData.increaseComparisons());
         onSwapEvent.addListener(x -> this.currentRunData.increaseinterchanges());
+        onInsertEvent.addListener(x -> this.currentRunData.increaseinterchanges());
     }
 
     public void sort(int[] arr) {
@@ -62,7 +66,7 @@ public abstract class Sort {
         }
     }
 
-    // Helper methods for comparison and swap
+    // Helper methods for comparison, swap, and insertion
     protected void compare(int i, int j) {
 
         onCompareEvent.invoke(new SimpleOpData(i, j));
@@ -76,6 +80,14 @@ public abstract class Sort {
         arr[j] = temp;
 
         onSwapEvent.invoke(new SimpleOpData(i, j));
+        handleVisualizationDelay();
+    }
+
+    protected void insert(int[] arr, int index, int value) {
+
+        arr[index] = value;
+
+        onInsertEvent.invoke(new SimpleOpData(index, value));
         handleVisualizationDelay();
     }
 }

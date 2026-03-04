@@ -1,4 +1,4 @@
-package com.enums;
+package com.Enums;
 
 public enum SortingType {
     SELECTION("Selection Sort"),
@@ -10,7 +10,7 @@ public enum SortingType {
 
     private final String displayName;
 
-    SortingType(String displayName) {
+    private SortingType(String displayName) {
         this.displayName = displayName;
     }
 

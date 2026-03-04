@@ -1,4 +1,4 @@
-package com.enums;
+package com.Enums;
 
 public enum ArrayType {
     RANDOM("Random"),
@@ -7,7 +7,7 @@ public enum ArrayType {
 
     private final String displayName;
 
-    ArrayType(String displayName) {
+    private ArrayType(String displayName) {
         this.displayName = displayName;
     }
 

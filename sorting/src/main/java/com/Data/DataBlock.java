@@ -2,9 +2,9 @@ package com.Data;
 
 import java.time.Duration;
 
-import com.enums.ArraySize;
-import com.enums.ArrayType;
-import com.enums.SortingType;
+import com.Enums.ArraySize;
+import com.Enums.ArrayType;
+import com.Enums.SortingType;
 
 import lombok.Data;
 
@@ -15,10 +15,11 @@ public class DataBlock {
     private ArraySize arraySize;
     private ArrayType arrayGenerationMode;
 
-    private long numberOfRuns;
     private Duration averageRuntime;
     private Duration minRuntime;
     private Duration maxRuntime;
+
+    private long numberOfRuns;
     private long comparisonsNumber;
     private long interchangesNumber;
 }

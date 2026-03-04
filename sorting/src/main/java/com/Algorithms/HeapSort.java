@@ -1,4 +1,4 @@
-package com.algorithms;
+package com.Algorithms;
 
 import com.Data.SimpleRunData;
 

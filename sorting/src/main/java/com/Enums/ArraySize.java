@@ -1,8 +1,10 @@
-package com.enums;
+package com.Enums;
 
 public enum ArraySize {
 
-    TINY(100),
+    EXTRA_TINY(20),
+    TINY(50),
+    EXTRA_SMALL(100),
     SMALL(500),
     MEDIUM(1000),
     LARGE(5000),
@@ -11,7 +13,7 @@ public enum ArraySize {
 
     private final long size;
 
-    ArraySize(long size) {
+    private ArraySize(long size) {
         this.size = size;
     }
 
