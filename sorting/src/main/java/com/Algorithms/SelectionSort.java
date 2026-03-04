@@ -10,21 +10,19 @@ public class SelectionSort extends Sort {
 
     @Override
     public void performSort(int[] arr) {
-
         for (int i = 0; i < arr.length; i++) {
-            int min = arr[0], minIndex = 0;
+            int minIndex = i;
 
-            for (int j = i; j < arr.length; j++) {
+            for (int j = i + 1; j < arr.length; j++) {
                 compare(j, minIndex);
-                if (min > arr[j]) {
-                    min = arr[j];
+                if (arr[j] < arr[minIndex]) {
                     minIndex = j;
                 }
             }
+
             if (i != minIndex) {
                 swap(arr, i, minIndex);
             }
-
         }
     }
 

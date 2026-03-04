@@ -10,13 +10,17 @@ public class InsertionSort extends Sort {
 
     @Override
     public void performSort(int[] arr) {
-
         for (int i = 1; i < arr.length; i++) {
-            while (arr[i - 1] > arr[i]) {
-                compare(i - 1, i);
-                swap(arr, i - 1, i);
+            int j = i;
+            while (j > 0) {
+                compare(j - 1, j);
+                if (arr[j - 1] > arr[j]) {
+                    swap(arr, j - 1, j);
+                    j--;
+                } else {
+                    break;
+                }
             }
-            compare(i - 1, i); // Add the comparison that breaks the loop
         }
     }
 

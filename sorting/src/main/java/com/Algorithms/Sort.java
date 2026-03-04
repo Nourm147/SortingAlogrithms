@@ -4,6 +4,7 @@ import com.Data.SimpleOpData;
 import com.Data.SimpleRunData;
 import com.Events.Event;
 
+import javafx.application.Platform;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -69,7 +70,10 @@ public abstract class Sort {
     // Helper methods for comparison, swap, and insertion
     protected void compare(int i, int j) {
 
-        onCompareEvent.invoke(new SimpleOpData(i, j));
+        Platform.runLater(() -> { // ensure that UI updates while this thread is suspended
+            onCompareEvent.invoke(new SimpleOpData(i, j));
+        });
+
         handleVisualizationDelay();
     }
 
@@ -79,15 +83,20 @@ public abstract class Sort {
         arr[i] = arr[j];
         arr[j] = temp;
 
-        onSwapEvent.invoke(new SimpleOpData(i, j));
+        Platform.runLater(() -> {
+            onSwapEvent.invoke(new SimpleOpData(i, j));
+        });
+
         handleVisualizationDelay();
     }
 
     protected void insert(int[] arr, int index, int value) {
 
         arr[index] = value;
+        Platform.runLater(() -> {
+            onInsertEvent.invoke(new SimpleOpData(index, value));
+        });
 
-        onInsertEvent.invoke(new SimpleOpData(index, value));
         handleVisualizationDelay();
     }
 }

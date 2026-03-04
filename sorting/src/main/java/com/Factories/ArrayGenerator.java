@@ -2,16 +2,15 @@ package com.Factories;
 
 import java.util.Random;
 
-import com.Enums.ArraySize;
 import com.Enums.ArrayType;
 
-public class ArrayGeneratorFactory {
+public class ArrayGenerator {
 
-    private ArrayGeneratorFactory() {
+    private ArrayGenerator() {
     }
 
-    public static int[] generateArray(ArraySize size, ArrayType type) {
-        int n = (int) size.getSize();
+    public static int[] generateArray(int size, ArrayType type) {
+        int n = size;
         int[] arr = new int[n];
 
         switch (type) {

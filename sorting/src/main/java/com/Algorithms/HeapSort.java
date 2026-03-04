@@ -15,7 +15,7 @@ public class HeapSort extends Sort {
         }
 
         for (int i = arr.length - 1; i > 0; i--) {
-            swap(arr, i, arr[0]);
+            swap(arr, i, 0);
             heapify(arr, i, 0); // ReInsert the last element after swapping
         }
 
@@ -27,14 +27,18 @@ public class HeapSort extends Sort {
         int left = 2 * index + 1;
         int right = 2 * index + 2;
 
-        compare(left, largest);
-        if (left < n && arr[left] > arr[largest]) {
-            largest = left;
+        if (left < n) {
+            compare(left, largest);
+            if (arr[left] > arr[largest]) {
+                largest = left;
+            }
         }
 
-        compare(right, largest);
-        if (right < n && arr[right] > arr[largest]) {
-            largest = right;
+        if (right < n) {
+            compare(right, largest);
+            if (arr[right] > arr[largest]) {
+                largest = right;
+            }
         }
 
         if (largest != index) {
