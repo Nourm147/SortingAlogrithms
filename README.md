@@ -9,16 +9,7 @@ A JavaFX application that visualizes and benchmarks six classical sorting algori
 ### Sorting Visualization
 - Animate up to **6 algorithms simultaneously**, each in its own independent block
 - Each algorithm runs on its own **dedicated thread**
-- Bar color reflects the current operation:
 
-  | State | Color |
-  |---|---|
-  | Default | Steel Blue `#5b9bd5` |
-  | Comparing | Amber Gold `#f5a623` |
-  | Swapping | Coral Red `#e8524a` |
-  | Sorted | Mint Green `#4caf82` |
-
-- **Real-time sound feedback** — tone pitch scales with element value
 - Adjustable **animation speed**
 - Displays comparisons and interchanges count on completion
 
