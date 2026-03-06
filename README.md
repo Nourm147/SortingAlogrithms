@@ -52,8 +52,7 @@ src/main/
 │   ├── analysis.py        # Chart generation script
 │   └── plots/             # Generated charts output here
 └── resources/
-    ├── assets/
-    └── styles/
+    └── assets/
 ```
 
 ---
@@ -111,8 +110,3 @@ The Python script generates two output files in `src/main/python/plots/`:
 - **`heatmap_algo_vs_mode.png`** — Heatmaps comparing all algorithms against generation modes for each metric
 
 ---
-
-## Assignment
-
-**CSE 224 — Data Structures 2** | Spring 2026 | Alexandria University  
-**Due:** Friday, 6th March 2026
