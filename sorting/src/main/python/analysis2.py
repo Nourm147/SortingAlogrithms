@@ -13,9 +13,6 @@ os.makedirs(charts_dir, exist_ok=True)
 
 sns.set_theme(style="darkgrid")
 
-# Fix array size ordering
-SIZE_ORDER = ["EXTRA_TINY", "TINY", "EXTRA_SMALL", "SMALL", "MEDIUM", "LARGE", "EXTRA_LARGE", "HUGE"]
-df["arraySize"] = pd.Categorical(df["arraySize"], categories=SIZE_ORDER, ordered=True)
 df = df.sort_values("arraySize")
 
 modes = df["mode"].unique()
@@ -114,4 +111,4 @@ plt.tight_layout()
 plt.savefig(os.path.join(charts_dir, "bar_operations.png"), dpi=150)
 plt.show()
 
-print(f"✅ Charts saved to {charts_dir}")
+print(f" Charts saved to {charts_dir}")

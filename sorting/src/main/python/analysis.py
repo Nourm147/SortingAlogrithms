@@ -79,4 +79,4 @@ plt.tight_layout()
 plt.savefig(os.path.join(charts_dir, "heatmap_algo_vs_mode.png"), dpi=150, bbox_inches="tight")
 plt.show()
 
-print(f"✅ Saved to {charts_dir}")
+print(f" Saved to {charts_dir}")
