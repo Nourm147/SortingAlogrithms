@@ -13,7 +13,7 @@ public class Bar extends Rectangle {
     }
 
     public void select() {
-        setStyle("-fx-fill: #FF6347;");
+        setStyle("-fx-fill: #e8524a;");
     }
 
     public void deselect() {

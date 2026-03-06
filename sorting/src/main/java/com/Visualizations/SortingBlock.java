@@ -26,8 +26,12 @@ public class SortingBlock extends VBox {
 
     private final Pane chartContainer;
     private final Button deleteBtn;
+    private final Button runBtn;
     private final Label titleLabel;
     private final SortingType type;
+
+    private final Label comparisonsLabel;
+    private final Label interchangesLabel;
 
     private double barWidth;
     private double barHeight;
@@ -39,6 +43,7 @@ public class SortingBlock extends VBox {
     private final List<Bar> selectedBars = new ArrayList<>();
 
     private final Event<SimpleRunData> onEndEvent;
+    private final Event<SortingBlock> onRunEvent;
     private Sort sorter;
 
     private int[] currentArray;
@@ -62,16 +67,29 @@ public class SortingBlock extends VBox {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
+        runBtn = new Button("▶ Play");
+        runBtn.setStyle("-fx-background-color: #2ecc71 ; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;");
+
         deleteBtn = new Button("✖");
         deleteBtn.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;");
 
-        header.getChildren().addAll(titleLabel, spacer, deleteBtn);
+        // Actions
+        header.getChildren().addAll(titleLabel, spacer, runBtn, deleteBtn);
 
         // Chart Area
         chartContainer = new Pane();
         VBox.setVgrow(chartContainer, Priority.ALWAYS); // Fill remaining space
 
+        // sorting data after finish
+        comparisonsLabel = new Label("Comparisons:");
+        interchangesLabel = new Label("Interchanges:");
+        // show at the center of the block
+        comparisonsLabel.setStyle("-fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-font-size: 20px;");
+        interchangesLabel.setStyle("-fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-font-size: 20px;");
+
         onEndEvent = new Event<>();
+        onRunEvent = new Event<>();
+
         this.getChildren().addAll(header, chartContainer);
     }
 
@@ -98,6 +116,10 @@ public class SortingBlock extends VBox {
 
     public void run(int size, double speed) {
         SimpleRunData runData = new SimpleRunData();
+        onRunEvent.invoke(this);
+
+        chartContainer.getChildren().remove(comparisonsLabel);
+        chartContainer.getChildren().remove(interchangesLabel);
 
         sorter = SortingFactory.createSorter(this.type, runData, true);
         sorter.setSpeed(speed);
@@ -106,7 +128,10 @@ public class SortingBlock extends VBox {
         sorter.getOnCompareEvent().addListener(data -> compareBars(data));
         sorter.getOnSwapEvent().addListener(data -> swapBars(data));
         sorter.getOnInsertEvent().addListener(data -> insertBar(data));
-        sorter.getOnEndEvent().addListener(data -> onEndEvent.invoke(data));
+        sorter.getOnEndEvent().addListener(data -> {
+            onEndEvent.invoke(data);
+            showSortData(data);
+        });
 
         Thread sortingThread = new Thread(() -> {
             sorter.sort(currentArray);
@@ -120,6 +145,15 @@ public class SortingBlock extends VBox {
             return;
         }
         sorter.setSpeed(speed);
+    }
+
+    private void showSortData(SimpleRunData data) {
+        comparisonsLabel.setText("Comparisons: " + data.getComparisonsNumber());
+        interchangesLabel.setText("Interchanges: " + data.getInterchangesNumber());
+
+        chartContainer.getChildren().add(comparisonsLabel);
+        chartContainer.getChildren().add(interchangesLabel);
+        interchangesLabel.setLayoutY(comparisonsLabel.getLayoutY() + 40);
     }
 
     private void swapBars(SimpleOpData data) {
@@ -189,11 +223,19 @@ public class SortingBlock extends VBox {
         return deleteBtn;
     }
 
+    public Button getRunBtn() {
+        return runBtn;
+    }
+
     public String getalgoType() {
         return titleLabel.getText();
     }
 
     public Event<SimpleRunData> getOnEndEvent() {
         return onEndEvent;
+    }
+
+    public Event<SortingBlock> getOnRunEvent() {
+        return onRunEvent;
     }
 }

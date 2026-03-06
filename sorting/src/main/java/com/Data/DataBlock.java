@@ -1,23 +1,21 @@
 package com.Data;
 
-import java.time.Duration;
-
-import com.Enums.ArraySize;
-import com.Enums.ArrayType;
 import com.Enums.SortingType;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class DataBlock {
 
     private SortingType sortingAlgorithmName;
-    private ArraySize arraySize;
-    private ArrayType arrayGenerationMode;
+    private int arraySize;
+    private String arrayGenerationMode;
 
-    private Duration averageRuntime;
-    private Duration minRuntime;
-    private Duration maxRuntime;
+    private double averageRuntime;
+    private double minRuntime;
+    private double maxRuntime;
 
     private long numberOfRuns;
     private long comparisonsNumber;

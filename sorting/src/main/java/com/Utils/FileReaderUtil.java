@@ -3,12 +3,22 @@ package com.Utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class FileReaderUtil {
 
     private FileReaderUtil() {
+    }
+
+    public static Map<String, int[]> readFiles(List<File> files) {
+        Map<String, int[]> map = new LinkedHashMap<>();
+        for (File file : files) {
+            map.put(file.getName(), readFile(file.getPath()));
+        }
+        return map;
     }
 
     public static int[] readFile(String filePath) {

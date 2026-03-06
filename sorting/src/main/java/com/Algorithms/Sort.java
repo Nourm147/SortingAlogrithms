@@ -48,7 +48,9 @@ public abstract class Sort {
         performSort(arr); // Call template Method
 
         currentRunData.endRun();
-        onEndEvent.invoke(currentRunData);
+        Platform.runLater(() -> {
+            onEndEvent.invoke(currentRunData);
+        });
     }
 
     // Template method for each sorting algorithm
@@ -56,10 +58,6 @@ public abstract class Sort {
 
     // Helper function to handle delay for visualization
     protected void handleVisualizationDelay() {
-
-        if (!inVisualizationMode) {
-            return;
-        }
         try {
             Thread.sleep((long) (duration / speed));
         } catch (InterruptedException e) {
@@ -70,11 +68,14 @@ public abstract class Sort {
     // Helper methods for comparison, swap, and insertion
     protected void compare(int i, int j) {
 
-        Platform.runLater(() -> { // ensure that UI updates while this thread is suspended
+        if (inVisualizationMode) {
+            Platform.runLater(() -> { // ensure that UI updates while this thread is suspended
+                onCompareEvent.invoke(new SimpleOpData(i, j));
+            });
+            handleVisualizationDelay();
+        } else {
             onCompareEvent.invoke(new SimpleOpData(i, j));
-        });
-
-        handleVisualizationDelay();
+        }
     }
 
     protected void swap(int[] arr, int i, int j) {
@@ -83,20 +84,26 @@ public abstract class Sort {
         arr[i] = arr[j];
         arr[j] = temp;
 
-        Platform.runLater(() -> {
+        if (inVisualizationMode) {
+            Platform.runLater(() -> {
+                onSwapEvent.invoke(new SimpleOpData(i, j));
+            });
+            handleVisualizationDelay();
+        } else {
             onSwapEvent.invoke(new SimpleOpData(i, j));
-        });
-
-        handleVisualizationDelay();
+        }
     }
 
     protected void insert(int[] arr, int index, int value) {
 
         arr[index] = value;
-        Platform.runLater(() -> {
+        if (inVisualizationMode) {
+            Platform.runLater(() -> {
+                onInsertEvent.invoke(new SimpleOpData(index, value));
+            });
+            handleVisualizationDelay();
+        } else {
             onInsertEvent.invoke(new SimpleOpData(index, value));
-        });
-
-        handleVisualizationDelay();
+        }
     }
 }
